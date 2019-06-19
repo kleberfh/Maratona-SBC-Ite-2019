@@ -316,8 +316,4 @@
         height: auto;
     }
 
-    active
-
-
-
 </style>
