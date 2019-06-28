@@ -1,39 +1,30 @@
 <template>
-    <nav id="header" class="fixed w-full z-30 top-0 text-white border-solid border-b-2" style="background-color: #2C9473; border-color: #00E099">
-        <div class="w-full mx-auto flex flex-wrap items-center justify-between mt-0 py-2">
-            <div class="pl-4 flex items-center" style="font-family: 'Quicksand', sans-serif;">
-                <a class="toggleColour text-white no-underline hover:no-underline font-medium text-2xl lg:text-4xl"  href="https://www.ite.edu.br/" target="_blank">
-                    <img class="w-10 fill-current inline" src="imgs/logo-ite.png" /> ITE - Maratona SBC 2019
+    <nav id="header" class="menu-header">
+        <div class="menu-content">
+            <div class="menu-logo">
+                <a class="menu-text"  href="https://www.ite.edu.br/" target="_blank">
+                    <img class="menu-img" src="imgs/logo-ite.png" /> ITE - Maratona SBC 2019
                 </a>
             </div>
 
-            <div class="block lg:hidden pr-4">
-                <button id="nav-toggle" class="flex items-center px-3 py-2 border rounded text-gray-500 border-gray-600 hover:text-gray-800 hover:border-teal-500 appearance-none focus:outline-none;" >
-                    <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
-                </button>
-            </div>
-
-            <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block mt-2 lg:mt-0 bg-white lg:bg-transparent text-black p-4 lg:p-0 z-20" id="nav-content"
-            style="font-family: 'Quicksand', sans-serif;">
-                <ul class="list-reset lg:flex justify-end flex-1 items-center">
-                    <li class="mr-3 rounded-full hover:bg-green-400 hover:opacity-25">
-                        <a id="menu-sobre" class="inline-block text-black font-thin no-underline hover:text-white hover:text-underline py-2 px-4" v-scroll-to="'#sobre'" href="#">Sobre</a>
+            <div class="menu-items" id="nav-content">
+                <ul class="menu-sub-items">
+                    <li class="menu-item">
+                        <a id="menu-sobre" class="menu-item-link" v-scroll-to="'#sobre'" href="#">Sobre</a>
                     </li>
-                    <li class="mr-3 rounded-full hover:bg-green-400 hover:opacity-25">
-                        <a id="menu-programacao" class="inline-block text-black font-thin no-underline hover:text-white hover:text-underline py-2 px-4" v-scroll-to="{el: '#programacao', offset: -20}" href="#">Programação</a>
+                    <li class="menu-item">
+                        <a id="menu-programacao" class="menu-item-link" v-scroll-to="{el: '#programacao', offset: -20}" href="#">Programação</a>
                     </li>
-                    <li class="mr-3 rounded-full hover:bg-green-400 hover:opacity-25">
-                        <a id="menu-instituicao" class="inline-block text-black font-thin no-underline hover:text-white hover:text-underline py-2 px-4" v-scroll-to="{el: '#instituicao', offset: -40}" href="#">Instituição</a>
+                    <li class="menu-item">
+                        <a id="menu-instituicao" class="menu-item-link" v-scroll-to="{el: '#instituicao', offset: -40}" href="#">Instituição</a>
                     </li>
-                    <li class="mr-3 rounded-full hover:bg-green-400 hover:opacity-25">
-                        <a id="menu-laboratorio" class="inline-block text-black font-thin no-underline hover:text-white hover:text-underline py-2 px-4" v-scroll-to="{el: '#laboratorio', offset: -30}" href="#">Laboratório</a>
+                    <li class="menu-item">
+                        <a id="menu-laboratorio" class="menu-item-link" v-scroll-to="{el: '#laboratorio', offset: -30}" href="#">Laboratório</a>
                     </li>
-                    <li class="mr-3 rounded-full hover:bg-green-400 hover:opacity-25">
-                        <a id="menu-contato" class="inline-block text-black font-thin no-underline hover:text-white hover:text-underline py-2 px-4" v-scroll-to="'#contato'" href="#">Contato e Patrocinadores</a>
+                    <li class="menu-item">
+                        <a id="menu-contato" class="menu-item-link" v-scroll-to="'#contato'" href="#">Contato e Patrocinadores</a>
                     </li>
                 </ul>
-                <button id="navAction" class="mx-auto lg:mx-0 bg-white text-gray-800 font-medium rounded-full mt-4 lg:mt-0 py-4 px-8 shadow opacity-75 focus:border-0"
-                style="font-family: 'Nunito', sans-serif">2019</button>
             </div>
         </div>
     </nav>
@@ -51,9 +42,115 @@
 </script>
 
 <style>
-    .active {
-        border-radius: 9999px;
+
+    /* - MENU STYLE - */
+    .menu-header {
+        font-family: Quicksand, sans-serif;
+        background-color: #2C9473;
+        border-color: #00E099;
+        width: 100%;
+        color: white;
+        border-bottom-width: 2px;
+        position: fixed;
+        z-index: 50;
+    }
+
+    .menu-content {
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+    }
+
+    .menu-logo {
+        padding-left: 1rem;
+        align-items: center;
+    }
+
+    .menu-text {
+        text-decoration: none;
+        color: white;
+        font-weight: 500;
+    }
+
+    .menu-img {
+        width: 2.5rem;
+        display: inline;
+    }
+
+    .menu-items {
+        display: flex;
+        flex-grow: 1;
+        width: auto;
+        padding: 0;
+        margin-top: 0;
+        background-color: transparent;
+        color: black;
+    }
+
+    .menu-sub-items {
+        display: flex;
+        flex: 1 1 0%;
+        justify-content: flex-end;
+        align-items: center;
+        list-style: none;
+    }
+
+    .menu-item {
+        margin-right: 0.75rem;
+        border-radius: 999px;
+    }
+
+    .menu-item:hover {
         background-color: #68d391;
-        color: #fff;
+        color: white;
+    }
+
+    .menu-item-link {
+        padding: 0.5rem 1rem;
+        font-weight: 200;
+        display: inline-block;
+        text-decoration: inherit;
+    }
+
+    .menu-item-active {
+        border-radius: 999px;
+        background-color: #68d391;
+        color: white;
+    }
+
+
+    /*DESKTOP*/
+    @media only screen and (min-width: 961px) {
+        .menu-content {
+            display: flex;
+        }
+        .menu-text {
+            font-size: 2.25rem;
+        }
+    }
+
+    /*MOBILE*/
+    @media only screen and (max-width: 960px) {
+        .menu-content {
+            display: grid;
+        }
+        .menu-logo {
+            padding-top: 0.5rem;
+        }
+        .menu-text {
+            font-size: 1.6rem;
+        }
+        .menu-img {
+            width: 2rem;
+        }
+        .menu-items {
+            overflow-x: auto;
+        }
+        .menu-sub-items {
+            margin-left: 1rem;
+            margin-right: 1rem;
+        }
+        .menu-item {
+            text-align: center;
+        }
     }
 </style>
