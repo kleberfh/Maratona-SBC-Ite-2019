@@ -87,42 +87,27 @@
             </section>
             <section id="laboratorio" class="w-full h-screen" style="background-color: #2C9473">
 
-                <VueperSlides fade slide-content-outside="top" slide-content-outside-class="max-widthed" :touchable="false" :slide-ratio="0.3">
-                    <VueperSlide
-                        v-for="(img, i) in imgs"
-                        :key="i"
-                        :image=img.path
-                    ></VueperSlide>
-                </VueperSlides>
-
             </section>
 <!--            <section class="w-full h-screen" style="background-color: #009465"></section>-->
         </div>
         <div>
-            <div id="contato" class="flex mt-4 mb-4">
-                <div class="w-2/4" style="margin-right: auto; margin-left: auto;">
-                    <section class="bg-green-600" style="height: 60vh; box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19); border-radius: 8px"></section>
+            <div class="contato-card" id="contato">
+                <img class="contato-img" src="imgs/contato/coordenador.jpeg" />
+                <div class="contato-text">
+                    <p class="contato-title"> Professor e Coordenador Anderson Talon</p>
+                    <p class="contato-desc"> Coordenador dos cursos 'Sistema de Informação' e 'Análise e Desenvolvimento de Sistemas' alem de ser o organizador responsável pela maratona em Bauru e na ITE </p>
+                    <a class="contato-email" href="mailto:anderson.talon@ite.edu.br"> anderson.talon@ite.edu.br </a>
+                    <a class="contato-tel" href="tel:1421075000"> (14) 2107-5000 </a>
                 </div>
             </div>
         </div>
-        <div class="flex flex-wrap h-24 center-content">
-            <div class="w-full w-1/1 mt-2">
-                <p class="text-xl font-bold ml-3">Nossos patrocinadores:</p>
+        <div class="patrocinadores">
+            <div class="">
+                <p class="patr-title">Nossos patrocinadores</p>
             </div>
-            <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6 mt-12 mx-6 cursor-pointer">
-                <img class="img-patrocinio" src="http://maratona.ite.edu.br/images/arcasolutions.png" />
-            </div>
-            <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6 mt-12 mx-6 cursor-pointer">
-                <img class="img-patrocinio" src="https://www.ite.edu.br/Content/Images/logo.png" />
-<!--            </div>-->
-<!--            <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6 mt-12 mx-6 cursor-pointer">-->
-<!--                <img class="img-patrocinio" src="http://maratona.ite.edu.br/images/ictus.png" />-->
-<!--            </div>-->
-<!--            <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6 mt-12 mx-6 cursor-pointer">-->
-<!--                <img class="img-patrocinio" src="http://maratona.ite.edu.br/images/harpo.png" />-->
-<!--            </div>-->
-<!--            <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6 mt-12 mx-6 cursor-pointer">-->
-<!--                <img class="img-patrocinio" src="http://maratona.ite.edu.br/images/neoassist.gif" />-->
+            <div class="patr-imgs">
+                <img class="img-patrocinador" src="imgs/patrocinadores/ite.png" />
+                <img class="img-patrocinador" src="imgs/patrocinadores/arca.png" />
             </div>
         </div>
     </div>
@@ -373,18 +358,77 @@
         width: 100%;  /* The width is the width of the web page */
     }
 
-    /*FOOTER*/
+    /*Contato*/
 
-    .patr-content {
+    .contato-card {
+        margin: 2rem;
+        height: 20rem;
+        background-color: #055E5B;
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
         display: flex;
-        flex-wrap: wrap;
     }
 
-    .img-patrocinio {
-        max-width:200px;
-        max-height:100px;
+    .contato-img {
+        max-height: 20rem;
         width: auto;
         height: auto;
+    }
+
+    .contato-text {
+    }
+
+    .contato-title {
+        font-size: 2rem;
+        font-weight: bold;
+        margin: 0.5rem;
+    }
+
+    .contato-desc {
+        color: #A7ABAD;
+        font-size: 1.2rem;
+        margin: 0.5rem;
+    }
+
+    .contato-email {
+        font-size: 1.6rem;
+        margin: 0.5rem;
+    }
+
+    .contato-email:hover {
+        color: #00E099;
+    }
+
+    .contato-tel {
+        font-size: 1.6rem;
+        margin: 0.5rem;
+    }
+
+    .contato-tel:hover {
+        color: #00E099;
+    }
+
+    /*Patrocinadores*/
+
+    .patrocinadores {
+        margin-top: 1rem;
+        display: grid;
+        background-color: #2C9473;
+    }
+
+    .patr-title {
+        font-size: 2rem;
+    }
+
+    .patr-imgs {
+        display: flex;
+    }
+
+    .img-patrocinador {
+        max-width: 20rem;
+        max-height: 5rem;
+        width: auto;
+        height: auto;
+        margin: 0.5rem;
     }
 
     * {
@@ -462,6 +506,19 @@
         }
         .section3-social-item {
             margin-right: 0.5rem;
+        }
+        .patr-title {
+            margin: auto;
+        }
+        .patr-imgs {
+            display: grid;
+        }
+        .img-patrocinador {
+            max-width: 20rem;
+            max-height: 5rem;
+            width: auto;
+            height: auto;
+            margin: 0.5rem auto;
         }
     }
 
