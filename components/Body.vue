@@ -4,7 +4,7 @@
             <section id="sobre" class="section-div" style="background-image: url('imgs/maratona2018-1.jpeg');">
                 <div class="section-container">
                     <div class="section-card">
-                        <div class="section-content">
+                        <div class="section-content" id="main-card">
                             <p class="section1-title section1-text">
                                 Maratona SBC de Programação 2019
                             </p>
@@ -86,7 +86,42 @@
                 </div>
             </section>
             <section id="laboratorio" class="w-full h-screen" style="background-color: #2C9473">
-
+                <div class="section-container">
+                    <div class="section-card" style="padding: 0 !important;">
+                        <div class="section-content" style="height: 80vh; width: 92vw">
+                            <p class="section4-title section4-text-content">
+                                Nossos Laboratórios
+                            </p>
+                            <div class="carousel-div-section-pc">
+                                <Carousel class="carousel-section"
+                                          :autoplay="true"
+                                          :autoplayHoverPause="true"
+                                          :perPage="1"
+                                          :navigationEnabled="true"
+                                          :paginationActiveColor="'#00E099'"
+                                          :paginationColor="'#b3b3b3'"
+                                          :navigationClickTargetSize="'20'"
+                                >
+                                    <Slide class="slide" v-for="lab in labs" :key="lab">
+                                        <img class="carousel-img" :src="lab"/>
+                                    </Slide>
+                                </Carousel>
+                            </div>
+                            <div class="carousel-div-section-mobile">
+                                <Carousel class="carousel-section"
+                                          :autoplay="true"
+                                          :perPage="1"
+                                          :paginationActiveColor="'#00E099'"
+                                          :paginationColor="'#b3b3b3'"
+                                >
+                                    <Slide class="slide" v-for="lab in labs" :key="lab">
+                                        <img class="carousel-img" :src="lab"/>
+                                    </Slide>
+                                </Carousel>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </section>
 <!--            <section class="w-full h-screen" style="background-color: #009465"></section>-->
         </div>
@@ -95,19 +130,24 @@
                 <img class="contato-img" src="imgs/contato/coordenador.jpeg" />
                 <div class="contato-text">
                     <p class="contato-title"> Professor e Coordenador Anderson Talon</p>
-                    <p class="contato-desc"> Coordenador dos cursos 'Sistema de Informação' e 'Análise e Desenvolvimento de Sistemas' alem de ser o organizador responsável pela maratona em Bauru e na ITE </p>
-                    <a class="contato-email" href="mailto:anderson.talon@ite.edu.br"> anderson.talon@ite.edu.br </a>
-                    <a class="contato-tel" href="tel:1421075000"> (14) 2107-5000 </a>
+                    <p class="contato-desc"> Coordenador dos cursos 'Sistema de Informação' e 'Análise e Desenvolvimento de Sistemas' além de ser o organizador responsável pela maratona em Bauru e na ITE </p>
+                    <div class="contato-links">
+                        <div class="contato-link">
+                        <a class="contato-email" href="mailto:anderson.talon@ite.edu.br">Email: anderson.talon@ite.edu.br </a>
+                        </div>
+                        <div class="contato-link">
+                        <a class="contato-tel" href="tel:1421075000">Telefone: (14) 2107-5000 </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="patrocinadores">
             <div class="">
-                <p class="patr-title">Nossos patrocinadores</p>
+                <p class="patr-title">Nossos patrocinadores:</p>
             </div>
             <div class="patr-imgs">
-                <img class="img-patrocinador" src="imgs/patrocinadores/ite.png" />
-                <img class="img-patrocinador" src="imgs/patrocinadores/arca.png" />
+                <img class="img-patrocinador" v-for="patr in patrs" :src="patr"/>
             </div>
         </div>
     </div>
@@ -117,27 +157,33 @@
     import VueEasyLightbox from 'vue-easy-lightbox'
     import VueCal from 'vue-cal'
     import 'vue-cal/dist/vuecal.css'
+    import { Carousel, Slide } from 'vue-carousel';
+    import Vue3dMenu from 'vue-3d-menu';
 
     export default {
         name: "Body",
         components: {
             VueEasyLightbox,
-            VueCal
+            VueCal,
+            Carousel,
+            Slide
 
         },
         data() {
             return {
-                imgs: [
-                        {
-                            path:'imgs/lab1.jpeg',
-                        },
-                        {
-                            path:'imgs/lab2.jpeg',
-                        },
-                        {
-                            path:'imgs/lab3.jpeg',
-                        }
-                    ],
+                labs: [
+                  'imgs/laboratorios/Laboratorio 3.jpeg',
+                  'imgs/laboratorios/Laboratorio 4.jpeg',
+                  'imgs/laboratorios/Laboratorio 6.jpeg',
+                ],
+                patrs: [
+                'imgs/patrocinadores/ite.png',
+                'imgs/patrocinadores/arcasolutions.png',
+                'imgs/patrocinadores/firework.png',
+                'imgs/patrocinadores/harpo.png',
+                'imgs/patrocinadores/ictus.png',
+                'imgs/patrocinadores/sinconecta.png',
+                ],
                 visible: false,
                 index: 0,   // default
                 events: [
@@ -172,23 +218,12 @@
                         class: 'calendar-event-results',
                     }
                 ],
-                scrollPosition: null
+                scrollPosition: null,
+                slide: 0,
+                sliding: null,
             }
         },
         methods: {
-            showMultiple() {
-                this.imgs = ['imgs/lab1.jpeg', 'imgs/lab2.jpeg', 'imgs/lab3.jpeg']
-                this.show()
-            },
-            show() {
-                this.visible = true
-            },
-            handleHide() {
-                this.visible = false
-            },
-            updateScroll() {
-                this.scrollPosition = window.scrollY
-            }
         },
         created() {
         },
@@ -282,10 +317,6 @@
         margin: 1rem;
         font-size: 1rem;
     }
-    /*.center-content {*/
-    /*    justify-content: center;*/
-    /*    align-items: center;*/
-    /*}*/
 
     /*SECTION 2*/
     .section2-card {
@@ -307,18 +338,15 @@
         margin: 2rem;
         font-weight: 700;
     }
-
     .section3-main-card {
         display: block;
         margin-top: auto;
         margin-bottom: auto;
         height: 40rem;
     }
-
     .section3-cards {
         display: inline-flex;
     }
-
     .section3-map-card {
         height: -webkit-fill-available;
         width: 42rem;
@@ -326,7 +354,6 @@
         border-radius: 30px;
         border: 2px solid #004731;
     }
-
     .section3-card {
         height: -webkit-fill-available;
         width: 42rem;
@@ -334,23 +361,42 @@
         border-radius: 30px;
         border: 2px solid #004731;
     }
-
     .section3-map-card:hover {
         border: 2px solid #00E099;
     }
-
     .section3-card:hover {
         border: 2px solid #00E099;
     }
-
     .section3-social {
         display:grid;
         margin: inherit;
         font-size: 1.5em;
     }
-
     .section3-social-link:hover {
         color: #00E099;
+    }
+
+    /*SECTION 4*/
+    .section4-title {
+        font-size: 2rem;
+        font-weight: 700;
+    }
+    .section4-text-content {
+        font-family: 'Roboto Mono', monospace;
+        padding: 1rem 1rem 0rem 1rem;
+    }
+    .carousel-div-section-pc {
+        padding-left: 5.5rem;
+        padding-top: 1rem;
+    }
+    .carousel-div-section-mobile {
+        display: none;
+        padding-left: 4rem;
+        padding-top: 1rem;
+    }
+    .carousel-section {
+        height: 70vh;
+        width: 80vw;
     }
 
     #map {
@@ -375,6 +421,7 @@
     }
 
     .contato-text {
+        padding: 1rem;
     }
 
     .contato-title {
@@ -384,9 +431,18 @@
     }
 
     .contato-desc {
-        color: #A7ABAD;
+        color: rgb(246, 252, 255);
         font-size: 1.2rem;
         margin: 0.5rem;
+        padding-top: 1rem;
+    }
+
+    .contato-links {
+        display: grid;
+    }
+
+    .contato-link {
+        padding: 0.5rem;
     }
 
     .contato-email {
@@ -416,11 +472,13 @@
     }
 
     .patr-title {
+        text-align: center;
         font-size: 2rem;
     }
 
     .patr-imgs {
         display: flex;
+        flex-wrap: wrap;
     }
 
     .img-patrocinador {
@@ -438,11 +496,16 @@
     }
 
     @media only screen and (min-width: 961px) {
-        .section1-text-content {
-            margin: 3rem;
+        #main-card {
+            padding: 2rem
         }
         .section-card {
-            height: 25rem;
+            padding-top: 12rem;
+        }
+        .section1-text-content {
+            white-space: pre-line;
+            font-size: 1rem;
+            margin: 0.4rem;
         }
         .section3-card {
             display: flex;
@@ -451,24 +514,63 @@
             text-align: center;
             font-size: 2rem;
         }
+        .contato-desc {
+            padding-bottom: 1rem;
+        }
     }
-    
+
     @media only screen and (min-width: 961px) and (max-width: 1400px) {
         .section3-cards {
-            margin-left: auto;
-            margin-right: auto;
-            display: grid;
+            margin-left: 1rem;
+            margin-right: 1rem;
+            display: flex;
         }
         .section3-map-card {
             margin: 1rem auto;
         }
         .section3-card {
-            margin: auto;
             height: auto;
+        }
+        .contato-text {
+            padding: 0.5rem;
+        }
+
+        .contato-title {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 0.5rem;
+        }
+
+        .contato-desc {
+            color: rgb(246, 252, 255);
+            font-size: 1rem;
+            margin: 0.5rem;
+            padding-top: 0.5rem;
+        }
+
+        .contato-links {
+            display: grid;
+        }
+
+        .contato-link {
+            padding: 0.2rem;
+        }
+
+        .contato-email {
+            font-size: 1.6rem;
+            margin: 0.5rem;
+        }
+
+        .contato-tel {
+            font-size: 1.6rem;
+            margin: 0.5rem;
         }
     }
 
     @media only screen and (max-width: 960px) {
+        #main-card {
+            padding: 0.5rem
+        }
         .section1-title {
             font-size: 1.4rem;
         }
@@ -513,12 +615,89 @@
         .patr-imgs {
             display: grid;
         }
+
+        .contato-card {
+            border-radius: 10px;
+            margin: 1rem;
+            height: 30%;
+            background-color: #055E5B;
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+            display: grid;
+        }
+
+        .contato-img {
+            padding-top: 0.5rem;
+            max-height: 10rem;
+            border-radius: 50%;
+            width: auto;
+            height: auto;
+            margin: auto;
+        }
+
+        .contato-text {
+            padding: 0.2rem;
+        }
+
+        .contato-title {
+            font-size: 1.6rem;
+            font-weight: bold;
+            margin: auto;
+            text-align: center;
+        }
+
+        .contato-desc {
+            color: rgb(246, 252, 255);
+            font-size: 1rem;
+            margin: 0.5rem;
+            padding-top: 0.5rem;
+            text-align: center;
+        }
+
+        .contato-links {
+            display: grid;
+        }
+
+        .contato-link {
+            padding: 0.1rem;
+            text-align: center;
+        }
+
+        .contato-email {
+            font-size: 1.6rem;
+            margin: 0.2rem;
+        }
+
+        .contato-tel {
+            font-size: 1.6rem;
+            margin: 0.2rem;
+        }
+
+        .carousel-div-section-pc {
+            display: none;
+            padding-left: 4rem;
+            padding-top: 1rem;
+        }
+
+        .carousel-div-section-mobile {
+            display: block;
+            padding-left: 3.5rem;
+            padding-top: 1rem;
+        }
+
+
         .img-patrocinador {
             max-width: 20rem;
             max-height: 5rem;
             width: auto;
             height: auto;
             margin: 0.5rem auto;
+        }
+    }
+
+    @media only screen and (max-width: 400px) {
+        .carousel-div-section-mobile {
+            padding-left: 1.5rem;
+            padding-top: 6rem;
         }
     }
 

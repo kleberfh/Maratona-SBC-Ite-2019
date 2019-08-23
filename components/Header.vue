@@ -24,6 +24,9 @@
                     <li class="menu-item">
                         <a id="menu-contato" class="menu-item-link" v-scroll-to="'#contato'" href="#">Contato e Patrocinadores</a>
                     </li>
+                    <li class="menu-item menu-item-active">
+                        <a id="others_years" class="menu-item-link" href="#">2019</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -101,7 +104,8 @@
 
     .menu-item:hover {
         background-color: #68d391;
-        color: white;
+        color: white !important;
+        text-decoration: none !important;
     }
 
     .menu-item-link {
