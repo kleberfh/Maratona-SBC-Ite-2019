@@ -25,7 +25,9 @@
                         <a id="menu-contato" class="menu-item-link" v-scroll-to="'#contato'" href="#">Contato e Patrocinadores</a>
                     </li>
                     <li class="menu-item menu-item-active">
-                        <a id="others_years" class="menu-item-link" href="#">2019</a>
+                        <a id="others_years" class="menu-item-link" href="../2018">
+                            <span>2019</span>
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -121,6 +123,13 @@
         color: white;
     }
 
+    #others_years:hover span{
+        display: none;
+    }
+
+    #others_years:hover:before {
+        content: "2018";
+    }
 
     /*DESKTOP*/
     @media only screen and (min-width: 961px) {
