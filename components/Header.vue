@@ -13,6 +13,9 @@
                         <a id="menu-sobre" class="menu-item-link" v-scroll-to="'#sobre'" href="#">Sobre</a>
                     </li>
                     <li class="menu-item">
+                        <a id="menu-2019" class="menu-item-link" v-scroll-to="{el: '#2019', offset: -10}" href="#">Edição 2019</a>
+                    </li>
+                    <li class="menu-item">
                         <a id="menu-programacao" class="menu-item-link" v-scroll-to="{el: '#programacao', offset: -20}" href="#">Programação</a>
                     </li>
                     <li class="menu-item">

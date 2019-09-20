@@ -20,6 +20,54 @@
                     </div>
                 </div>
             </section>
+            <section id="2019" class="w-full h-screen" style="background-color: #2C9473">
+                <div class="section-container">
+                    <div class="section-card" style="padding: 0 !important;">
+                        <div class="section-content" style="height: 80vh; width: 92vw">
+                            <p class="section4-title section4-text-content">
+                                Edição de 2019
+                            </p>
+                            <vue-easy-lightbox
+                                :visible="visible_event"
+                                :imgs="event_photos"
+                                :index="event_index"
+                                @hide="handleHide(true)"
+                            ></vue-easy-lightbox>
+                            <div class="carousel-div-section-pc">
+                                <Carousel class="carousel-section"
+                                          :autoplay="true"
+                                          :autoplayHoverPause="true"
+                                          :perPage="1"
+                                          :navigationEnabled="true"
+                                          :paginationActiveColor="'#00E099'"
+                                          :paginationColor="'#b3b3b3'"
+                                          :navigationClickTargetSize="20"
+                                >
+                                    <Slide class="slide" v-for="(photos, index) in event_photos" :key="photos">
+                                        <div @click="() => {showImg(index, true)}">
+                                            <img class="carousel-img" :src="photos"/>
+                                        </div>
+                                    </Slide>
+                                </Carousel>
+                            </div>
+                            <div class="carousel-div-section-mobile">
+                                <Carousel class="carousel-section"
+                                          :autoplay="true"
+                                          :perPage="1"
+                                          :paginationActiveColor="'#00E099'"
+                                          :paginationColor="'#b3b3b3'"
+                                >
+                                    <Slide class="slide" v-for="(photos, index) in event_photos" :key="photos">
+                                        <div @click="() => {showImg(index, true)}">
+                                            <img class="carousel-img" :src="photos"/>
+                                        </div>
+                                    </Slide>
+                                </Carousel>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
             <section id="programacao" class="section-div" style="background-color: #00E099">
                 <div class="section-container">
                     <div class="section2-card">
@@ -92,6 +140,12 @@
                             <p class="section4-title section4-text-content">
                                 Nossos Laboratórios
                             </p>
+                            <vue-easy-lightbox
+                                    :visible="visible_lab"
+                                    :imgs="labs"
+                                    :index="lab_index"
+                                    @hide="handleHide(false)"
+                            ></vue-easy-lightbox>
                             <div class="carousel-div-section-pc">
                                 <Carousel class="carousel-section"
                                           :autoplay="true"
@@ -100,10 +154,12 @@
                                           :navigationEnabled="true"
                                           :paginationActiveColor="'#00E099'"
                                           :paginationColor="'#b3b3b3'"
-                                          :navigationClickTargetSize="'20'"
+                                          :navigationClickTargetSize="20"
                                 >
-                                    <Slide class="slide" v-for="lab in labs" :key="lab">
-                                        <img class="carousel-img" :src="lab"/>
+                                    <Slide class="slide" v-for="(lab, index) in labs" :key="lab">
+                                        <div @click="() => {showImg(index, false)}">
+                                            <img class="carousel-img" :src="lab"/>
+                                        </div>
                                     </Slide>
                                 </Carousel>
                             </div>
@@ -114,8 +170,10 @@
                                           :paginationActiveColor="'#00E099'"
                                           :paginationColor="'#b3b3b3'"
                                 >
-                                    <Slide class="slide" v-for="lab in labs" :key="lab">
-                                        <img class="carousel-img" :src="lab"/>
+                                    <Slide class="slide" v-for="(lab, index) in labs" :key="lab">
+                                        <div @click="() => {showImg(index, false)}">
+                                            <img class="carousel-img" :src="lab"/>
+                                        </div>
                                     </Slide>
                                 </Carousel>
                             </div>
@@ -123,7 +181,6 @@
                     </div>
                 </div>
             </section>
-<!--            <section class="w-full h-screen" style="background-color: #009465"></section>-->
         </div>
         <div>
             <div class="contato-card" id="contato">
@@ -158,7 +215,6 @@
     import VueCal from 'vue-cal'
     import 'vue-cal/dist/vuecal.css'
     import { Carousel, Slide } from 'vue-carousel';
-    import Vue3dMenu from 'vue-3d-menu';
 
     export default {
         name: "Body",
@@ -171,6 +227,26 @@
         },
         data() {
             return {
+                event_photos: [
+                    'imgs/2019/1.jpeg',
+                    'imgs/2019/2.jpeg',
+                    'imgs/2019/3.jpeg',
+                    'imgs/2019/4.jpeg',
+                    'imgs/2019/5.jpeg',
+                    'imgs/2019/6.jpeg',
+                    'imgs/2019/7.jpeg',
+                    'imgs/2019/8.jpeg',
+                    'imgs/2019/9.jpeg',
+                    'imgs/2019/10.jpeg',
+                    'imgs/2019/11.jpeg',
+                    'imgs/2019/12.jpeg',
+                    'imgs/2019/13.jpeg',
+                    'imgs/2019/14.jpeg',
+                    'imgs/2019/15.jpeg',
+                    'imgs/2019/16.jpeg',
+                    'imgs/2019/17.jpeg',
+                    'imgs/2019/18.jpeg',
+                ],
                 labs: [
                   'imgs/laboratorios/Laboratorio 3.jpeg',
                   'imgs/laboratorios/Laboratorio 4.jpeg',
@@ -184,8 +260,10 @@
                 'imgs/patrocinadores/ictus.png',
                 'imgs/patrocinadores/sinconecta.png',
                 ],
-                visible: false,
-                index: 0,   // default
+                visible_event: false,
+                visible_lab: false,
+                event_index: 0,   // default
+                lab_index: 0,   // default
                 events: [
                     {
                         start: '2019-06-14 9:00',
@@ -224,11 +302,22 @@
             }
         },
         methods: {
-        },
-        created() {
+            showImg (index, target = false) {
+                if (target) {
+                    console.log(index);
+                    this.event_index = index;
+                    this.visible_event = true
+                } else {
+                    this.lab_index = index;
+                    this.visible_lab = true
+                }
+            },
+            handleHide (target = false) {
+                if (target) this.visible_event = false;
+                if (!target) this.visible_lab = false
+            }
         },
         mounted() {
-
             var controller = new this.$scrollmagic.Controller({
                 globalSceneOptions: {duration: "100%"}
             });
@@ -249,8 +338,6 @@
                 .setClassToggle("#menu-contato", "menu-item-active")
                 .addTo(controller);
         },
-        destroy() {
-        }
     }
 
 </script>
@@ -399,6 +486,12 @@
         width: 80vw;
     }
 
+    .carousel-img {
+        object-fit: scale-down !important;
+        max-width: 85vh !important;
+        margin: auto !important;
+    }
+
     #map {
         height: 400px;  /* The height is 400 pixels */
         width: 100%;  /* The width is the width of the web page */
@@ -507,7 +600,13 @@
             font-size: 1rem;
             margin: 0.4rem;
         }
+
+        .section3-map-card {
+            height: 76vh !important;
+        }
+
         .section3-card {
+            height: 76vh !important;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -526,10 +625,11 @@
             display: flex;
         }
         .section3-map-card {
+            height: 76vh !important;
             margin: 1rem auto;
         }
         .section3-card {
-            height: auto;
+            height: 76vh;
         }
         .contato-text {
             padding: 0.5rem;
@@ -695,6 +795,10 @@
     }
 
     @media only screen and (max-width: 400px) {
+        .carousel-img {
+            max-width: 100% !important;
+        }
+
         .carousel-div-section-mobile {
             padding-left: 1.5rem;
             padding-top: 6rem;

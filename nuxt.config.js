@@ -44,7 +44,6 @@ export default {
   */
   modules: [
       'vue-scrollto/nuxt',
-      // 'bootstrap-vue/nuxt',
   ],
   /*
   ** Build configuration
@@ -60,5 +59,13 @@ export default {
     */
     extend(config, ctx) {
     }
+  },
+
+  // router: {
+  //   base: '/2019/'
+  // },
+
+  generate: {
+    dir: 'dist'
   }
 }
