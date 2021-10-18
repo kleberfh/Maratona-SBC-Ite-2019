@@ -2,8 +2,6 @@
 
 Site oficial da ite para a maratona de programação SBC de 2019
 
-Rodando em: http://maratona.ite.edu.br/2019
-
 ## Instalação
 
 Necessita o uso do [npm](https://www.npmjs.com/) para instalar as dependencias e rodar.
